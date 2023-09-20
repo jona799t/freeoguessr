@@ -1,7 +1,7 @@
 <script>
     import { page } from '$app/stores';
-	import { getContext } from 'svelte';
-    import Leaflet from '$lib/Leaflet.svelte';
+	import { setContext } from 'svelte';
+    import Map from '$lib/Map.svelte';
     
     let mode = $page.url.searchParams.get("mode") || "gmaps";
     let initialView = [50, 0];
@@ -24,20 +24,23 @@
     let blur = true;
     let timer;
 
-    let i = 0;
     async function loaded() {
-        i++;
-        if (i == 2) {
-            timer = 3;
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            timer = 2;
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            timer = 1;
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            blur = false;
-        }
+        timer = 3;
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        timer = 2;
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        timer = 1;
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        blur = false;
     }
 
+    function guess(marker) {
+        alert(`Du har gættet på: (${marker._latlng.lat}, ${marker._latlng.lng})`);
+    }
+
+    setContext("main", {
+        guess: guess
+    });
 </script>
 
 {#if blur}
@@ -50,12 +53,9 @@
     </div>
 {/if}
 
-<div class="absolute bottom-0 right-0 bg-base-100 w-1/5 h-1/5 hover:w-2/5 hover:h-2/5 outline outline-2 outline-base-100 {blur ? "blur-xl" : ""}" use:loaded>
-    <Leaflet view={initialView} zoom={2} />
-    {#if !blur}
-        <button class="absolute bottom-0 right-0 w-full btn btn-primary rounded-none z-10">Guess</button>
-    {/if}
-</div>
+{#if !blur}
+    <Map view={initialView} zoom={2} guess={guess} />
+{/if}
 
 <div class="absolute top-0 w-full {blur ? "blur-xl" : ""} -z-10">
     <iframe
