@@ -53,7 +53,7 @@
 <div class="absolute bottom-0 right-0 bg-base-100 w-1/5 h-1/5 hover:w-2/5 hover:h-2/5 outline outline-2 outline-base-100 {blur ? "blur-xl" : ""}" use:loaded>
     <Leaflet view={initialView} zoom={2} />
     {#if !blur}
-        <button class="p-2 absolute bottom-0 right-0 w-full btn btn-primary z-10">Guess (attribution gemmes bag knap)</button>
+        <button class="absolute bottom-0 right-0 w-full btn btn-primary rounded-none z-10">Guess</button>
     {/if}
 </div>
 
