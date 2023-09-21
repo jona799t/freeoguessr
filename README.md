@@ -21,3 +21,4 @@ What is missing?
  * User made locations
  * Database
  * Mobil responsive
+ * A better frontpage

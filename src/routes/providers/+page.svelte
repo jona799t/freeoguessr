@@ -67,7 +67,7 @@
         }
 
         afstand = distance(marker._latlng.lat, marker._latlng.lng, lat, lng);
-        message = `Du var ${afstand} meter væk fra målet`
+        message = `You were ${afstand.toFixed(2)} meters away from the target`
         blur = true;
     }
 

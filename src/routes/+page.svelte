@@ -88,6 +88,7 @@
         <li>Random locations</li>
         <li>User made locations</li>
         <li>Database</li>
-        <li>Mobil responsive</li>
+        <li>Mobile responsive</li>
+        <li>A better frontpage</li>
     </ul>
 </div>
