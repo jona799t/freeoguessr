@@ -23,9 +23,13 @@
         }).addTo(map);
 
         map.on("click", (click) => {
-            console.log(click)
             marker?.remove();
-            marker = L.marker(click.latlng).addTo(map);
+            marker = L.marker(click.latlng, {
+                icon: L.icon({
+                    iconUrl: "leaflet/marker-icon.png",
+                    shadowUrl: "leaflet/marker-shadow.png",
+                })
+            }).addTo(map);
             map.setView(click.latlng)
         });
     });
