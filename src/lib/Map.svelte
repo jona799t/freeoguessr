@@ -16,9 +16,10 @@
     onMount(() => {
         map = L.map(mapElement);
 
-        L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png", {
+        L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            maxZoom: 20,
             edgeBufferTiles: 10,
-            attribution: '<p class="-mt-20">&copy;<a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>,&copy;<a href="https://carto.com/attributions" target="_blank">CARTO</a></p>'
+            attribution: '<p class="-mt-20">&copy; <a href="https://openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors</p>'
         }).addTo(map);
 
         map.on("click", (click) => {

@@ -22,20 +22,53 @@
     }
 
     let blur = true;
-    let timer;
+    let message;
 
     async function loaded() {
-        timer = 3;
+        message = 3;
         await new Promise(resolve => setTimeout(resolve, 1000));
-        timer = 2;
+        message = 2;
         await new Promise(resolve => setTimeout(resolve, 1000));
-        timer = 1;
+        message = 1;
         await new Promise(resolve => setTimeout(resolve, 1000));
         blur = false;
     }
 
+    function distance(lat0, lng0, lat1, lng1) { // From: https://en.wikipedia.org/wiki/Haversine_formula
+        lat0 = lat0 * Math.PI / 180
+        lng0 = lng0 * Math.PI / 180
+        lat1 = lat1 * Math.PI / 180
+        lng1 = lng1 * Math.PI / 180
+
+        return 2 * 6378.137 * Math.asin( ( Math.sin( (lat1-lat0)/2 )**2 + Math.cos(lat0) * Math.cos(lat1) * Math.sin( (lng1 - lng0)/2 )**2 )**(0.5) ) * 1000
+    }
+
+    let afstand;
+
     function guess(marker) {
-        alert(`Du har gættet på: (${marker._latlng.lat}, ${marker._latlng.lng})`);
+        let lat;
+        let lng;
+
+        switch (mode) {
+            case "gmaps": 
+                lat = parseFloat(/1d\d+.\d+!/.exec(urls[mode]).toString().replace("1d", "").replace("!", ""));
+                lng = parseFloat(/2d\d+.\d+!/.exec(urls[mode]).toString().replace("2d", "").replace("!", ""));
+                break;
+            case "yandex":
+                const coords = /ll=\d+.\d+%2C\d+.\d+/.exec(urls[mode]).toString().split("%2C")
+                lng = parseFloat(coords[0].replace("ll=", ""));
+                lat = parseFloat(coords[1]);
+                break;
+        }
+
+        if (mode == "gmaps") {
+            lat = parseFloat(/1d\w+.\w+!/.exec(urls[mode]).toString().replace("1d", "").replace("!", ""));
+            lng = parseFloat(/2d\w+.\w+!/.exec(urls[mode]).toString().replace("2d", "").replace("!", ""));
+        }
+
+        afstand = distance(marker._latlng.lat, marker._latlng.lng, lat, lng);
+        message = `Du var ${afstand} meter væk fra målet`
+        blur = true;
     }
 
     setContext("main", {
@@ -47,7 +80,7 @@
     <div class="absolute top-0 w-full text-center z-50">
         <div class="flex h-screen">
             <div class="m-auto">
-                <h1 class="text-8xl font-bold">{timer}</h1>
+                <h1 class="text-8xl font-bold">{message}</h1>
             </div>
         </div>
     </div>
@@ -56,7 +89,6 @@
 {#if !blur}
     <Map view={initialView} zoom={2} guess={guess} />
 {/if}
-
 <div class="absolute top-0 w-full {blur ? "blur-xl" : ""} -z-10">
     <iframe
         use:loaded
