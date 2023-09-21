@@ -2,7 +2,7 @@
 A free world guesser using no api keys with coverage for most countries in the world.
 
 ## Progress
-Street view is visible on all services. The map/guessing is not done yet.  
+Street view is visible on all services. The map/guessing works on Google Maps and Yandex Maps.  
 Multiplayer could also be a fun thing to add.  
 | Service     | Why?                          | Progress                                                      |
 |-------------|-------------------------------|---------------------------------------------------------------|
@@ -11,12 +11,13 @@ Multiplayer could also be a fun thing to add.
 | Baidu Map   | China coverage                | Street view works but really slow and the location is visible |
 | Kakao Map   | South Korea coverage          | Street view works but the location is visible                 |
 | Bing Maps   | IDK, will probably be removed | Street view works but the location is visible                 |
-| Mapillary   | "Rare" coverage               | Street view works                                             |
+| Mapillary   | Unique coverage               | Street view works                                             |
 | Carte.ma    | Morocco coverage              | Street view works but the location is visible                 |
 
 ## Missing
 What is missing?
- * Map
+ * Result map
  * Random locations
  * User made locations
  * Database
+ * Mobil responsive
