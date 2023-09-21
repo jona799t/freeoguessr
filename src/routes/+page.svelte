@@ -26,7 +26,7 @@
     `
 </script>
 
-<div class="max-w-[86rem] m-auto p-2">
+<div class="max-w-[86rem] m-auto p-6">
     <h1 class="font-bold text-5xl mb-2">Freeoguessr</h1>
     <p class="mb-8">A free and open source world guesser with coverage for most countries in the world.</p>
 
