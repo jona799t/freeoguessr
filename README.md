@@ -1,5 +1,6 @@
 # Freeoguessr
-A free world guesser using no api keys with coverage for most countries in the world.
+A free world guesser using no api keys with coverage for most countries in the world.  
+The game is available at: https://freeoguessr.vercel.app/
 
 ## Progress
 Street view is visible on all services. The map/guessing works on Google Maps and Yandex Maps.  
