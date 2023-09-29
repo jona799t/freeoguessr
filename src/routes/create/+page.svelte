@@ -65,6 +65,15 @@
             </div>
             
             <div class="my-4">
+                <h2 class="font-bold text-xl mb-1">Default map</h2>
+                <p>This is the map provider which will be used unless another is specified in the JSON item</p>
+                <select class="select select-bordered w-full">
+                    <option selected>Google Maps</option>
+                    <option>Yandex Maps</option>
+                </select>
+            </div>
+            
+            <div class="my-4">
                 <h2 class="font-bold text-xl mb-1">Map data</h2>
                 <p class="mb-1">Please copy the JSON data from the map maker and insert it underneath:</p>
                 <textarea class="textarea textarea-bordered w-full h-96 resize-none" placeholder="{"{}"}" bind:value={data}></textarea>
