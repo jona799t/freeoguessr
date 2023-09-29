@@ -56,7 +56,7 @@
     }
 </script>
 
-<div class="absolute bottom-0 right-0 bg-base-100 w-1/5 h-1/5 hover:w-2/5 hover:h-2/5 outline outline-2 outline-base-100">
+<div class="absolute bottom-5 right-2 bg-base-100 w-1/5 h-1/5 hover:w-2/5 hover:h-2/5 outline outline-2 outline-base-100">
     <div class="w-full h-full z-0" bind:this={mapElement} on:mouseenter={fitMap} on:mouseleave={fitMap}>
         {#if map}
             <slot />

@@ -8,7 +8,7 @@
         jsonMap = JSON.parse(atob(map));
         let maps = JSON.parse(localStorage.getItem("maps"));
         console.log(maps);
-        maps[jsonMap.name.toLowerCase()] = jsonMap;
+        maps[jsonMap.name.toLowerCase().replaceAll(" ", "_")] = jsonMap;
         localStorage.setItem("maps", JSON.stringify(maps));
         ready = true;
     }
@@ -20,7 +20,7 @@
     {#if map}
         {#if ready}
             <p>{jsonMap.name} has been imported</p>
-            <button class="btn btn-primary">Play now</button>
+            <a class="btn btn-primary" href="/play_new?map={jsonMap.name.toLowerCase().replaceAll(" ", "_")}">Play now</a>
             <button class="btn">Copy link</button>
         {:else}
             <p>Importing the map {jsonMap.name}...</p>

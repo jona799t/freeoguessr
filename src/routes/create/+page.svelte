@@ -23,6 +23,10 @@
             allowed = false;
         }
 
+        if (jsonData.customCoordinates) {
+            jsonData = jsonData.customCoordinates;
+        }
+
         if (allowed) {
             map = btoa(JSON.stringify({
                 name: name,
@@ -54,6 +58,7 @@
                 <h2 class="font-bold text-xl mb-1">The semi-manual solution</h2>
                 <p>This map marker is the perfect solution if you want to carefully pick your location</p>
                 <p><a class="link" href="https://map-making.app/" target="_blank">map-making.app</a>.</p>
+                <p>Please select the option: "Use Pano IDs for new locations by default", otherwise this solution will not work.</p>
                 <p>Unlike the automatic solution, this one is not as resource heavy.</p>
             </div>
         </div>
