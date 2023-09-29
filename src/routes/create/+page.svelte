@@ -35,7 +35,7 @@
 </script>
 
 <div class="max-w-[86rem] m-auto p-6">
-    <div class="grid grid-cols-3 gap-4">
+    <div class="grid lg:grid-cols-3 gap-4">
         <div class="bg-base-200 rounded-xl p-4">
             <div>
                 <h2 class="font-bold text-xl mb-1">How to make a map?</h2>
@@ -58,7 +58,7 @@
             </div>
         </div>
 
-        <div class="col-span-2 bg-base-200 rounded-xl p-4">
+        <div class="lg:col-span-2 bg-base-200 rounded-xl p-4">
             <div>
                 <h2 class="font-bold text-xl mb-1">What should your map be named?</h2>
                 <input type="text" placeholder="The map name" class="input input-bordered w-full" bind:value={name} />
