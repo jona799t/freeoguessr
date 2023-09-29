@@ -12,6 +12,8 @@
         localStorage.setItem("maps", JSON.stringify(maps));
         ready = true;
     }
+
+    // Tilføj en url shortener, til at dele det
 </script>
 
 <div class="max-w-[86rem] m-auto p-6">
@@ -19,6 +21,7 @@
         {#if ready}
             <p>{jsonMap.name} has been imported</p>
             <button class="btn btn-primary">Play now</button>
+            <button class="btn">Copy link</button>
         {:else}
             <p>Importing the map {jsonMap.name}...</p>
         {/if}
