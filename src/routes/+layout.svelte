@@ -1,5 +1,9 @@
 <script>
     import "../app.css";
+
+    if (localStorage.getItem("maps") == null) {
+        localStorage.setItem("maps", "{}");
+    }
 </script>
 
 
