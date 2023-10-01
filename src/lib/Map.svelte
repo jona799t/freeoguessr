@@ -19,6 +19,7 @@
         L.tileLayer("http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&language=en", {
             maxZoom: 20,
             edgeBufferTiles: 10,
+            keepBuffer: 1000,
             subdomains:["mt0","mt1","mt2","mt3"],
             attribution: '<div class="-mr-1 -mt-20"><div class="leaflet-control-attribution leaflet-control"><a href="https://leafletjs.com" title="A JavaScript library for interactive maps">Leaflet</a> | &copy; <a href="https://google.com/maps" target="_blank">Google Maps</a></div></div>'
         }).addTo(map);
@@ -27,7 +28,9 @@
             marker?.remove();
             marker = L.marker(click.latlng, {
                 icon: L.divIcon({
-                    className: 'bg-primary h-8 w-8 rounded-full',
+                    className: 'bg-primary rounded-full',
+                    html: "",
+                    iconSize: [32, 32]
                 })
             }).addTo(map);
             map.setView(click.latlng);

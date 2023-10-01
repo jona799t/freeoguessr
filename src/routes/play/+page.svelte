@@ -90,7 +90,7 @@
                 <div class="w-3/5 text-center" style="height: calc(100vh - 128px) !important;">
                     <h1 class="text-3xl font-bold">{message}</h1>
                     <div class="my-4 h-3/5 w-full">
-                        <ResultMap view={[50, 0]} zoom={5}/>
+                        <ResultMap guessLocation={guessLocation} correctLocation={correctLocation}/>
                     </div>
                     <div>
                         <button class="btn btn-primary mr-1" on:click={() => {round++; blur = true; guessed=false; loaded}}>{round < map.length-1 ? "Continue" : "Exit"}</button>
