@@ -56,8 +56,8 @@
                 alert(`Unknown street view provider`)
         }
 
-        guessLocation = [lat, lng];
-        correctLocation = [marker._latlng.lat, marker._latlng.lng];
+        correctLocation = [lat, lng];
+        guessLocation = [marker._latlng.lat, marker._latlng.lng];
 
         message = `You were ${distance(marker._latlng.lat, marker._latlng.lng, lat, lng).toFixed(2)} meters away from the target`;
         guessed = true;
