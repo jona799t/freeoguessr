@@ -2,6 +2,7 @@
     import { page } from '$app/stores';
 	import { setContext } from 'svelte';
     import Map from '$lib/Map.svelte';
+    import ResultMap from '$lib/ResultMap.svelte';
     import maps from "$lib/data/maps.json"
 
     const map_id = $page.url.searchParams.get("map");
@@ -13,13 +14,14 @@
 
     let blur = true;
     let message;
+    let timer;
 
     async function loaded() {
-        message = 3;
+        timer = 3;
         await new Promise(resolve => setTimeout(resolve, 1000));
-        message = 2;
+        timer = 2;
         await new Promise(resolve => setTimeout(resolve, 1000));
-        message = 1;
+        timer = 1;
         await new Promise(resolve => setTimeout(resolve, 1000));
         blur = false;
     }
@@ -33,6 +35,9 @@
         return 2 * 6378.137 * Math.asin( ( Math.sin( (lat1-lat0)/2 )**2 + Math.cos(lat0) * Math.cos(lat1) * Math.sin( (lng1 - lng0)/2 )**2 )**(0.5) ) * 1000
     }
 
+    let guessLocation;
+    let correctLocation;
+    let guessed = false;
     async function guess(marker) {
         let lat;
         let lng;
@@ -51,17 +56,11 @@
                 alert(`Unknown street view provider`)
         }
 
-        message = `You were ${distance(marker._latlng.lat, marker._latlng.lng, lat, lng).toFixed(2)} meters away from the target`
-        blur = true;
-        
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        guessLocation = [lat, lng];
+        correctLocation = [marker._latlng.lat, marker._latlng.lng];
 
-        if (round < map.length-1) {
-            round++;
-            loaded();
-        } else {
-            message = "The game is over"
-        }
+        message = `You were ${distance(marker._latlng.lat, marker._latlng.lng, lat, lng).toFixed(2)} meters away from the target`;
+        guessed = true;
     }
 
     setContext("main", {
@@ -69,27 +68,43 @@
     });
 </script>
 
+
 {#if map}
     {#if blur}
-    <div class="absolute top-0 w-full text-center z-50">
-        <div class="flex h-screen">
-            <div class="m-auto">
-                <h1 class="text-8xl font-bold">{message}</h1>
+        <div class="absolute top-0 w-full text-center z-50">
+            <div class="flex h-screen">
+                <div class="m-auto">
+                    <h1 class="text-8xl font-bold">{timer}</h1>
+                </div>
             </div>
         </div>
-    </div>
     {/if}
 
-    {#if !blur}
+    {#if !blur && !guessed}
         <Map view={[50, 0]} zoom={2} guess={guess} />
     {/if}
 
-    <div class="absolute top-0 w-full {blur ? "blur-xl" : ""} -z-10">
-        <iframe
-            use:loaded
-            class="w-full h-screen"
-            src={map[round]}>
-        </iframe>
+    <div class="absolute top-0 w-full h-full {blur ? "blur-xl" : ""} -z-10">
+        {#if guessed}
+            <div class="mt-14 flex justify-center">
+                <div class="w-3/5 text-center" style="height: calc(100vh - 128px) !important;">
+                    <h1 class="text-3xl font-bold">{message}</h1>
+                    <div class="my-4 h-3/5 w-full">
+                        <ResultMap view={[50, 0]} zoom={5}/>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary mr-1" on:click={() => {round++; blur = true; guessed=false; loaded}}>{round < map.length-1 ? "Continue" : "Exit"}</button>
+                        <a class="btn" href={map[round]} target="_blank">Open</a>
+                    </div>
+                </div>
+            </div>
+        {:else}
+            <iframe
+                use:loaded
+                class="w-full h-screen"
+                src={map[round]}>
+            </iframe>
+        {/if}
     </div>
 {:else}
     <p>The map id is invalid</p>
