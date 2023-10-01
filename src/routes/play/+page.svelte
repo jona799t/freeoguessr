@@ -93,7 +93,11 @@
                         <ResultMap guessLocation={guessLocation} correctLocation={correctLocation}/>
                     </div>
                     <div>
-                        <button class="btn btn-primary mr-1" on:click={() => {round++; blur = true; guessed=false; loaded}}>{round < map.length-1 ? "Continue" : "Exit"}</button>
+                        {#if round < map.length-1}
+                            <button class="btn btn-primary mr-1" on:click={() => {round++; blur = true; guessed=false; loaded}}>Continue</button>
+                        {:else}
+                            <a class="btn btn-primary mr-1" href="/">Home</a>
+                        {/if}
                         <a class="btn" href={map[round]} target="_blank">Open</a>
                     </div>
                 </div>

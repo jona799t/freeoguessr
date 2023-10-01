@@ -24,7 +24,7 @@
 
         let markerGuess = L.marker(guessLocation, {
             icon: L.divIcon({
-                className: 'bg-primary rounded-full',
+                className: 'bg-primary outline outline-base-100 rounded-full',
                 html: "",
                 iconSize: [32, 32]
             })
@@ -33,7 +33,7 @@
 
         let markerCorrect = L.marker(correctLocation, {
             icon: L.divIcon({
-                className: 'bg-success rounded-full',
+                className: 'bg-success outline outline-base-100 rounded-full',
                 html: "",
                 iconSize: [32, 32]
             })
@@ -42,6 +42,11 @@
 
         let group = new L.featureGroup([markerGuess, markerCorrect]);
         map.fitBounds(group.getBounds());
+
+        new L.polyline([guessLocation, correctLocation], {
+            color: "red",
+            opacity: 0.5
+        }).addTo(map);
     });
 
     onDestroy(() => {

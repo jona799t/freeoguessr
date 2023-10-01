@@ -56,7 +56,6 @@
 
     <h2 class="font-bold text-4xl mb-2 mt-8">What is missing?</h2>
     <ul class="list-disc">
-        <li>Result map</li>
         <li>Random locations</li>
         <li>User made locations</li>
         <li>Database</li>
