@@ -24,12 +24,13 @@
               <li><a target="_self" href="/providers?mode=cartema" class="justify-between">carte.ma <span class="badge">WIP</span></a></li>
             </ul>
         </div>
+        <!--
         <div class="dropdown dropdown-hover dropdown-end">
             <label tabindex="0" class="btn btn-sm m-1">Games</label>
             <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
               <li><a target="_self" href="/play?map=ex-soviet">Ex-Soviet</a></li>
             </ul>
-        </div>
+        </div>-->
     </div>
 </div>
 
