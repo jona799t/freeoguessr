@@ -15,7 +15,7 @@
     let timer;
 
     onMount(async () => {
-        map = await (await fetch(`http://localhost:5173/api/map?id=${map_id}`)).json();
+        map = await (await fetch(`/api/map?id=${map_id}`)).json();
         console.log(map)
     });
 
