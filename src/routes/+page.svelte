@@ -2,6 +2,8 @@
     <h1 class="font-bold text-5xl mb-2">Freeoguessr</h1>
     <p>A free and open source world guesser with coverage for most countries in the world.</p>
 
+    <a class="my-2 btn btn-primary" href="/play?map=world">Play now</a>
+
     <h2 class="font-bold text-4xl mb-2 mt-8">Progress</h2>
     <p>Street view is visible on all services. The map/guessing works on Google Maps and Yandex.</p>
     <p>Multiplayer could also be a fun thing to add.</p>
@@ -56,7 +58,6 @@
 
     <h2 class="font-bold text-4xl mb-2 mt-8">What is missing?</h2>
     <ul class="list-disc">
-        <li>Random locations</li>
         <li>User made locations</li>
         <li>Database</li>
         <li>Mobile responsive</li>

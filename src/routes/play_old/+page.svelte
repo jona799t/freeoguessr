@@ -1,23 +1,20 @@
 <script>
     import { page } from '$app/stores';
-	import { onMount, setContext } from 'svelte';
+	import { setContext } from 'svelte';
     import Map from '$lib/Map.svelte';
     import ResultMap from '$lib/ResultMap.svelte';
+    import maps from "$lib/data/maps.json"
 
     const map_id = $page.url.searchParams.get("map");
 
-    let map;
+    const map = maps[map_id];
     let round = 0;
     let points = 0;
-    
+
+
     let blur = true;
     let message;
     let timer;
-
-    onMount(async () => {
-        map = await (await fetch(`http://localhost:5173/api/map?id=${map_id}`)).json();
-        console.log(map)
-    });
 
     async function loaded() {
         timer = 3;
@@ -42,10 +39,27 @@
     let correctLocation;
     let guessed = false;
     async function guess(marker) {
-        correctLocation = [map.rounds[round].lat, map.rounds[round].lng];
+        let lat;
+        let lng;
+
+        switch (/https:\/\/[^\/]+/.exec(map[round]).toString()) {
+            case "https://www.google.com": 
+                lat = parseFloat(/1d\d+.\d+!/.exec(map[round]).toString().replace("1d", "").replace("!", ""));
+                lng = parseFloat(/2d\d+.\d+!/.exec(map[round]).toString().replace("2d", "").replace("!", ""));
+                break;
+            case "https://yandex.com":
+                const coords = /ll=\d+.\d+%2C\d+.\d+/.exec(map[round]).toString().split("%2C")
+                lng = parseFloat(coords[0].replace("ll=", ""));
+                lat = parseFloat(coords[1]);
+                break;
+            default:
+                alert(`Unknown street view provider`)
+        }
+
+        correctLocation = [lat, lng];
         guessLocation = [marker._latlng.lat, marker._latlng.lng];
-        
-        message = `You were ${distance(marker._latlng.lat, marker._latlng.lng, map.rounds[round].lat, map.rounds[round].lng).toFixed(2)} meters away from the target`
+
+        message = `You were ${distance(marker._latlng.lat, marker._latlng.lng, lat, lng).toFixed(2)} meters away from the target`;
         guessed = true;
     }
 
@@ -79,7 +93,7 @@
                         <ResultMap guessLocation={guessLocation} correctLocation={correctLocation}/>
                     </div>
                     <div>
-                        {#if round < map.rounds.length-1}
+                        {#if round < map.length-1}
                             <button class="btn btn-primary mr-1" on:click={() => {round++; blur = true; guessed=false; loaded}}>Continue</button>
                         {:else}
                             <a class="btn btn-primary mr-1" href="/">Home</a>
@@ -89,13 +103,11 @@
                 </div>
             </div>
         {:else}
-            {#if map.defaultProvider == "Google Maps"}
-                <iframe
-                    use:loaded
-                    class="w-full h-screen"
-                    src="https://www.google.com/maps/embed?pb=!6m8!1m7!{map.rounds[round].panoId}!2m2!1d{map.rounds[round].lat}!2d{map.rounds[round].lng}!3f{map.rounds[round].heading}!4f{map.rounds[round].pitch}!5f{map.rounds[round].zoom}">
-                </iframe>
-            {/if}
+            <iframe
+                use:loaded
+                class="w-full h-screen"
+                src={map[round]}>
+            </iframe>
         {/if}
     </div>
 {:else}
