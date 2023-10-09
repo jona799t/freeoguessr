@@ -99,5 +99,11 @@
         {/if}
     </div>
 {:else}
-    <p>The map id is invalid</p>
+<div class="absolute top-0">
+    <div class="flex h-screen w-screen">
+        <div class="m-auto">
+            <span class="loading loading-spinner loading-lg"></span>
+        </div>
+    </div>    
+</div>
 {/if}
