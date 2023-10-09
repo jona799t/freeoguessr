@@ -72,7 +72,7 @@
 
     <div class="absolute top-0 w-full h-full {blur ? "blur-xl" : ""} -z-10">
         {#if guessed}
-            <div class="mt-14 flex justify-center">
+            <div class="mt-20 flex justify-center">
                 <div class="w-3/5 text-center" style="height: calc(100vh - 128px) !important;">
                     <h1 class="text-3xl font-bold">{message}</h1>
                     <div class="my-4 h-3/5 w-full">
