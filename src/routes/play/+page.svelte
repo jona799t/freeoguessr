@@ -84,7 +84,7 @@
                         {:else}
                             <a class="btn btn-primary mr-1" href="/">Home</a>
                         {/if}
-                        <a class="btn" href={map[round]} target="_blank">Open</a>
+                        <a class="btn" href="https://www.google.com/maps?q&layer=c&cbll={map[round].lat},{map[round].lng}" target="_blank">Open</a>
                     </div>
                 </div>
             </div>
